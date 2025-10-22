@@ -95,7 +95,7 @@ class InventoryManager extends StateNotifier<List<Product>> {
   }
 
   Future<void> updateStock(String productId, int delta) async {
-    final isOnline = await _ref.read(connectivityServiceProvider).isOnline;
+    final isOnline = _ref.read(connectivityServiceProvider).isOnline;
     final user = _ref.read(authProvider)!;
 
     final productIndex = state.indexWhere((p) => p.id == productId);
@@ -261,7 +261,7 @@ class InventoryManager extends StateNotifier<List<Product>> {
   }
 
   Future<void> deleteProduct(String productId) async {
-    final isOnline = await _ref.read(connectivityServiceProvider).isOnline;
+    final isOnline = _ref.read(connectivityServiceProvider).isOnline;
     final user = _ref.read(authProvider)!;
 
     state = state.where((p) => p.id != productId).toList();

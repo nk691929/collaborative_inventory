@@ -71,7 +71,7 @@ void main() {
     
     test('enqueue adds an operation to the Hive box and notifies listeners', () async {
       final listener = Listener<List<OfflineOperation>>();
-      container.listen(offlineQueueProvider, listener, fireImmediately: true);
+      container.listen(offlineQueueProvider, listener.call, fireImmediately: true);
 
       verify(() => listener(null, []));
 
@@ -105,7 +105,6 @@ void main() {
 
       await tester.pumpWidget(
         ProviderScope(
-          parent: container,
           overrides: [
             inventoryManagerProvider.overrideWith((ref) => InventoryManager(ref, [testProduct], mockProductBox, mockBackendService, container.read(offlineQueueServiceProvider.notifier))),
             isProductQueuedProvider('p001').overrideWithValue(false),
@@ -124,7 +123,6 @@ void main() {
 
       await tester.pumpWidget(
         ProviderScope(
-          parent: container,
           overrides: [
             inventoryManagerProvider.overrideWith((ref) => InventoryManager(ref, [testProduct], mockProductBox, mockBackendService, container.read(offlineQueueServiceProvider.notifier))),
             isProductQueuedProvider('p001').overrideWithValue(false),
@@ -144,7 +142,6 @@ void main() {
 
       await tester.pumpWidget(
         ProviderScope(
-          parent: container,
           overrides: [
             inventoryManagerProvider.overrideWith((ref) => InventoryManager(ref, [testProduct], mockProductBox, mockBackendService, container.read(offlineQueueServiceProvider.notifier))),
             isProductQueuedProvider('p001').overrideWithValue(false),
