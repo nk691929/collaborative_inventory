@@ -1,39 +1,49 @@
-name: Flutter CI
+name: Flutter CI/CD
 
 on:
   push:
-    branches: [main, master]
+    # Trigger on push to main or master
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [main, master]
+    # Trigger on PR to main or master
+    branches: [ "main", "master" ]
 
 jobs:
   build:
+    # Run the job on the latest Ubuntu environment
     runs-on: ubuntu-latest
-
+    
     steps:
-      # Checkout your code
+      # Step 1: Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ✅ Correct setup for Flutter
+      # Step 2: Setup Flutter (using explicit version is the fix)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          # Use an explicit, known version to prevent the "Unable to determine version" error
+          flutter-version: '3.24.3'
           cache: true
 
-      # Check Flutter version
-      - name: Verify Flutter
+      # Step 3: Verify the version installed
+      - name: Verify Flutter Version
         run: flutter --version
 
-      # Get dependencies
+      # Step 4: Get dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Run analyzer
+      # Step 5: Run code generation for Hive adapters
+      - name: Run Build Runner (Code Generation)
+        run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
+      # Step 6: Analyze code for linting and style errors
       - name: Analyze code
         run: flutter analyze
 
-      # Run tests
+      # Step 7: Run tests
       - name: Run tests
+        # Use --no-pub to speed up test execution since pub get ran earlier
         run: flutter test --no-pub
