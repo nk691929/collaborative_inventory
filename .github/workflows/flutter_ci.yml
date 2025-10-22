@@ -2,42 +2,39 @@ name: Flutter CI
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 🧩 Checkout the repository
-      - name: Checkout code
+      # 1️⃣ Checkout your code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🦋 Setup Flutter environment
+      # 2️⃣ Setup Flutter (explicit version and channel)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3'   # ✅ Specify version explicitly
+          flutter-version: '3.24.3'   # 👈 specify version explicitly
           channel: 'stable'
+          cache: true
 
-      # 🧠 Verify Flutter installation
-      - name: Check Flutter version
+      # 3️⃣ Check Flutter setup
+      - name: Verify Flutter setup
         run: flutter --version
 
-      # 📦 Install dependencies
+      # 4️⃣ Get dependencies
       - name: Get dependencies
         run: flutter pub get
 
-      # 🧹 Analyze the project for errors
-      - name: Analyze project
+      # 5️⃣ Analyze code (linting)
+      - name: Run analyzer
         run: flutter analyze
 
-      # 🧪 Run all Flutter tests
+      # 6️⃣ Run tests
       - name: Run tests
         run: flutter test --no-pub
