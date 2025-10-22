@@ -2,54 +2,35 @@ name: Flutter CI/CD
 
 on:
   push:
-    # Trigger on push to main or master
     branches: [ "main", "master" ]
   pull_request:
-    # Trigger on PR to main or master
     branches: [ "main", "master" ]
 
 jobs:
   build:
-    # Run the job on the latest Ubuntu environment
     runs-on: ubuntu-latest
     
     steps:
-      # Step 1: Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --- Custom, highly robust setup for Flutter ---
-      # This setup uses git to clone a specific version of the SDK, bypassing issues with the GitHub Action's internal version resolver.
-      - name: Setup Python
-        # Required for the Flutter environment scripts
-        uses: actions/setup-python@v5
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          python-version: '3.x'
+          flutter-version: '3.22.3'
+          channel: 'stable'
 
-      - name: Clone and Setup Flutter SDK (Version 3.22.6)
-        run: |
-          # Use 'v3.22.6' to correctly target the release tag in the repo.
-          git clone https://github.com/flutter/flutter.git --depth 1 -b stable _flutter
-          echo "_flutter/bin" >> $GITHUB_PATH
-          flutter doctor -v # Verify setup
-
-      # Step 3: Verify the version installed
       - name: Verify Flutter Version
         run: flutter --version
 
-      # Step 4: Get dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 5: Run code generation for Hive adapters
-      - name: Run Build Runner (Code Generation)
+      - name: Run Build Runner
         run: flutter packages pub run build_runner build --delete-conflicting-outputs
 
-      # Step 6: Analyze code for linting and style errors
       - name: Analyze code
         run: flutter analyze
 
-      # Step 7: Run tests
       - name: Run tests
-        # Use --no-pub to speed up test execution since pub get ran earlier
         run: flutter test --no-pub
