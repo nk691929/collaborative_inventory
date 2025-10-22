@@ -24,7 +24,7 @@ jobs:
         with:
           channel: 'stable'
           # Switched to a known stable version that is less likely to cause CI resolution issues
-          flutter-version: '3.22.2'
+          flutter-version: 'latest'
           cache: true
 
       # Step 3: Verify the version installed
