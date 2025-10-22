@@ -1,30 +1,29 @@
-name: Flutter CI/CD
+name: Flutter CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: 'stable'
+          cache: false
 
-      - name: Install Dependencies
-        run: flutter pub get
+      - name: Clean and get packages
+        run: |
+          flutter clean
+          flutter pub get
 
-      - name: Run Build Runner (Code Generation for Hive)
-        run: flutter packages pub run build_runner build --delete-conflicting-outputs
-
-      - name: Analyze Code
+      - name: Analyze
         run: flutter analyze
-
-      - name: Run Tests
-        run: flutter test

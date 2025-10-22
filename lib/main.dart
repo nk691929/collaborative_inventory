@@ -27,7 +27,7 @@ void main() async {
   final auditBox = await Hive.openBox<ProductAuditEntry>('auditBox');
 
   runApp(
-    ProviderScope(
+    ProviderScope(      
       overrides: [
         mockBackendServiceProvider.overrideWithValue(
           MockBackendService(productBox, auditBox),
