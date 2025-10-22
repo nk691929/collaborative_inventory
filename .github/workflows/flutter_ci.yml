@@ -28,8 +28,8 @@ jobs:
 
       - name: Clone and Setup Flutter SDK (Version 3.22.6)
         run: |
-          # Use git clone to pull the specific version branch directly
-          git clone https://github.com/flutter/flutter.git --depth 1 -b 3.22.6 _flutter
+          # FIX: Use 'v3.22.6' instead of '3.22.6' to correctly target the release tag/branch name.
+          git clone https://github.com/flutter/flutter.git --depth 1 -b v3.22.6 _flutter
           echo "_flutter/bin" >> $GITHUB_PATH
           flutter doctor -v # Verify setup
 
