@@ -20,7 +20,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.3'   # ✅ explicit version required
           cache: true
 
       # Check Flutter version
