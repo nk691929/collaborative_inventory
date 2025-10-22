@@ -18,14 +18,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Flutter (using a slightly older, known-stable version)
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      # --- FIX: Custom, highly robust setup for Flutter ---
+      # This bypasses the version resolution issues in subosito/flutter-action
+      - name: Setup Python
+        # Required for the Flutter environment scripts
+        uses: actions/setup-python@v5
         with:
-          channel: 'stable'
-          # Switched to a known stable version that is less likely to cause CI resolution issues
-          flutter-version: 'latest'
-          cache: true
+          python-version: '3.x'
+
+      - name: Clone and Setup Flutter SDK (Version 3.22.6)
+        run: |
+          # Use git clone to pull the specific version branch directly
+          git clone https://github.com/flutter/flutter.git --depth 1 -b 3.22.6 _flutter
+          echo "_flutter/bin" >> $GITHUB_PATH
+          flutter doctor -v # Verify setup
 
       # Step 3: Verify the version installed
       - name: Verify Flutter Version
