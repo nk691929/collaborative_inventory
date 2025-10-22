@@ -18,8 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --- FIX: Custom, highly robust setup for Flutter ---
-      # This bypasses the version resolution issues in subosito/flutter-action
+      # --- Custom, highly robust setup for Flutter ---
+      # This setup uses git to clone a specific version of the SDK, bypassing issues with the GitHub Action's internal version resolver.
       - name: Setup Python
         # Required for the Flutter environment scripts
         uses: actions/setup-python@v5
@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone and Setup Flutter SDK (Version 3.22.6)
         run: |
-          # FIX: Use 'v3.22.6' instead of '3.22.6' to correctly target the release tag/branch name.
+          # Use 'v3.22.6' to correctly target the release tag in the repo.
           git clone https://github.com/flutter/flutter.git --depth 1 -b v3.22.6 _flutter
           echo "_flutter/bin" >> $GITHUB_PATH
           flutter doctor -v # Verify setup
