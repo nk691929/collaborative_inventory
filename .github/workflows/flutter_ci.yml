@@ -17,10 +17,8 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Clean and get packages
-        run: |
-          flutter clean
-          flutter pub get
+      - name: Install Dependencies
+        run: flutter pub get
 
       - name: Run Build Runner (Code Generation for Hive)
         run: flutter packages pub run build_runner build --delete-conflicting-outputs
