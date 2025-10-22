@@ -18,13 +18,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Flutter (using explicit version is the fix)
+      # Step 2: Setup Flutter (using a slightly older, known-stable version)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # Use an explicit, known version to prevent the "Unable to determine version" error
-          flutter-version: '3.24.3'
+          # Switched to a known stable version that is less likely to cause CI resolution issues
+          flutter-version: '3.22.6'
           cache: true
 
       # Step 3: Verify the version installed
