@@ -11,30 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout your code
+      # Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Flutter (explicit version and channel)
+      # ✅ Correct setup for Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3'   # 👈 specify version explicitly
           channel: 'stable'
+          flutter-version: '3.24.3'   # ✅ explicit version required
           cache: true
 
-      # 3️⃣ Check Flutter setup
-      - name: Verify Flutter setup
+      # Check Flutter version
+      - name: Verify Flutter
         run: flutter --version
 
-      # 4️⃣ Get dependencies
-      - name: Get dependencies
+      # Get dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      # 5️⃣ Analyze code (linting)
-      - name: Run analyzer
+      # Run analyzer
+      - name: Analyze code
         run: flutter analyze
 
-      # 6️⃣ Run tests
+      # Run tests
       - name: Run tests
         run: flutter test --no-pub
