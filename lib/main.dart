@@ -3,19 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/models.dart';
-import 'core/mock_backend_service.dart'; // Import the mock service and provider
-import 'features/auth/application/auth_notifier.dart'; // Import notifier
+import 'core/mock_backend_service.dart'; 
+import 'features/auth/application/auth_notifier.dart'; 
 import 'features/auth/presentation/login_screen.dart';
 import 'features/inventory/presentation/inventory_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. Initialize Hive
   final appDocumentDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
 
-  // 2. Register all generated TypeAdapters
   Hive.registerAdapter(AppRoleAdapter());
   Hive.registerAdapter(AppUserAdapter());
   Hive.registerAdapter(ProductAdapter());
@@ -23,7 +21,6 @@ void main() async {
   Hive.registerAdapter(OfflineOperationAdapter());
   Hive.registerAdapter(OperationTypeAdapter());
 
-  // 3. Open required boxes for persistence (Capturing the Box<Product> instance)
   await Hive.openBox<AppUser>('sessionBox');
   final productBox = await Hive.openBox<Product>('productBox');
   await Hive.openBox<OfflineOperation>('queueBox');
@@ -71,7 +68,6 @@ class InventoryApp extends StatelessWidget {
           ),
         ),
       ),
-      // Use a Consumer to decide the home screen based on the Auth state
       home: Consumer(
         builder: (context, ref, child) {
           final user = ref.watch(authProvider);
