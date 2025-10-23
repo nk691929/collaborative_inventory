@@ -1,6 +1,6 @@
 My Awesome Inventory App (Built with a Little Help!)
 
-I made this app to manage inventory with my team. It's built with Flutter and Riverpod and it handles things really smoothly, especially when the Wi-Fi is shaky. It looks simple, but there's a lot going on under the hood!
+I made this app to manage inventory. It's built with Flutter and Riverpod and it handles things really smoothly, especially when the network is shaky. It looks simple, but there's a lot going on under the hood!
 
 The Cool Stuff It Can Do
 
