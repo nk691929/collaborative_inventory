@@ -1,4 +1,4 @@
-My Awesome Inventory App (Built with a Little Help!)
+My Inventory App (Built with a Little Help!)
 
 I made this app to manage inventory. It's built with Flutter and Riverpod and it handles things really smoothly, especially when the network is shaky. It looks simple, but there's a lot going on under the hood!
 
@@ -6,7 +6,7 @@ The Cool Stuff It Can Do
 
 Login & Roles: I set up different users (Admin, Manager, Viewer) so everyone only sees and does what they're supposed to.
 
-Super Fast Updates: When you change a stock number, the app updates instantly. If the internet is slow, it fixes itself later—this is called Optimistic UI.
+Super Fast Updates: When you change a stock number, the app updates instantly. If the network is slow, it fixes itself later—this is called Optimistic UI.
 
 Offline King: If you lose service, you can keep making changes! It saves everything into a Queue and syncs when you get back online.
 
@@ -75,13 +75,13 @@ View Only
 
 The Brains Behind the Operation (What My Awesome AI Helper Did)
 
-Okay, I'll be honest, my helper AI figured out the really tricky parts. I just put the pieces together where it and apply changes where i need it.
+Okay, I'll be honest, my helper AI figured out the really tricky parts. I just put the pieces together where it needed and apply changes where i need it.
 
 1. The Offline Queue System (The Magic)
 
 It figured out how to use Hive (a local database) to store all the operations (like "add 5 to product X").
 
-It designed the OfflineQueueService which is like a manager that watches the internet. If the internet is gone, it saves the operation. When the internet comes back, it automatically replays the whole list of changes!
+It designed the OfflineQueueService which is like a manager that watches the network. If the network is gone, it saves the operation. When the network comes back, it automatically replays the whole list of changes!
 
 It even added a smart limit to retry failed syncs only a few times before calling it a permanent issue.
 
